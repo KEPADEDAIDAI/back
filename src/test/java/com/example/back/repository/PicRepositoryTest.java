@@ -6,12 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-class TestRepositoryTest {
+class PicRepositoryTest {
 
     @Autowired
-    private TestRepository testRepository;
+    private PicRepository picRepository;
     @Test
     void findAll(){
-        System.out.println(testRepository.findAll());
+        System.out.println(picRepository.findAll());
     }
 }
