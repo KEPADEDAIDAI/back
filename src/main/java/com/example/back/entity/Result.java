@@ -1,0 +1,44 @@
+package com.example.back.entity;
+
+import lombok.Data;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
+
+public class Result<T> {
+    private Integer code;
+    private String msg;
+    private T data;
+
+
+    public Result(T data) {
+        this.code = 1;
+        this.msg = "success";
+        this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+}

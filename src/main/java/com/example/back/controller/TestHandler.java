@@ -1,5 +1,6 @@
 package com.example.back.controller;
 
+import com.example.back.entity.Result;
 import com.example.back.entity.Test;
 import com.example.back.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class TestHandler {
     private TestRepository testRepository;
 
     @GetMapping("/findAll")
-    public List<Test> findAll(){
-        return testRepository.findAll();
+    public Result<List<Test>> find(){
+        return new Result<>(testRepository.findAll());
     }
+
 }
