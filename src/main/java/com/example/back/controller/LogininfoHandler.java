@@ -1,7 +1,9 @@
 package com.example.back.controller;
 
 import com.example.back.entity.Logininfo;
+import com.example.back.entity.Result;
 import com.example.back.repository.LogininfoReponsitory;
+import com.example.back.server.LogininfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +15,11 @@ import java.util.List;
 @RequestMapping("/logininfo")
 public class LogininfoHandler {
     @Autowired
-    private LogininfoReponsitory logininfoReponsitory;
+    private LogininfoService logininfoService;
 
     @GetMapping("/findAll")
-    public List<Logininfo> findAll(){
-        return logininfoReponsitory.findAll();
+    public Result<List<Logininfo>> findAll()
+    {
+        return new Result<>(logininfoService.findAll());
     }
 }

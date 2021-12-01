@@ -13,5 +13,5 @@ public class Comment {
     private String pltime;
     private Integer uid;
     private Integer pid;
-    private String pl_txt;
+    private String pltxt;
 }

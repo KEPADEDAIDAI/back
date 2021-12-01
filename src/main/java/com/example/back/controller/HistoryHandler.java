@@ -1,7 +1,9 @@
 package com.example.back.controller;
 
 import com.example.back.entity.History;
+import com.example.back.entity.Result;
 import com.example.back.repository.HistoryReposotory;
+import com.example.back.server.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +15,11 @@ import java.util.List;
 @RequestMapping("/history")
 public class HistoryHandler {
     @Autowired
-    private HistoryReposotory historyreposotory;
+    private HistoryService historyService;
 
     @GetMapping("/findAll")
-    public List<History> findAll()
+    public Result<List<History>> findAll()
     {
-        return historyreposotory.findAll();
+        return new Result<>(historyService.findAll());
     }
 }

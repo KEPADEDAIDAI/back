@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,12 +16,12 @@ public class Pic {
     private Integer pid;
     private String purl;
     private String pname;
-    private String ptime_start;
-    private String ptime_end;
-    private String pplace_sheng;
-    private String pplace_shi;
-    private String pplace_qv;
-    private String pplace_old;
+    private Date ptimestart;
+    private Date ptimeend;
+    private String pplacesheng;
+    private String pplaceshi;
+    private String pplaceqv;
+    private String pplaceold;
     private String ptxt;
 
 }

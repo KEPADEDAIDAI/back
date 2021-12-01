@@ -11,5 +11,5 @@ public class Admi {
     @Id
     private Integer cid;
     private String cname;
-    private String c_pas;
+    private String cpass;
 }

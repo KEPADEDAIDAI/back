@@ -10,9 +10,9 @@ import javax.persistence.Id;
 
 public class Logininfo {
     @Id
-    private Integer load_id;
+    private Integer loadid;
     private Integer uid;
-    private String load_time;
-    private String load_ip;
+    private String loadtime;
+    private String loadip;
 
 }

@@ -2,7 +2,9 @@ package com.example.back.controller;
 
 
 import com.example.back.entity.Comment;
+import com.example.back.entity.Result;
 import com.example.back.repository.CommentRepository;
+import com.example.back.server.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +17,12 @@ import java.util.List;
 public class CommentHandler {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @GetMapping("/findAll")
-    public List<Comment> findAll()
+    public Result<List<Comment>> findAll()
     {
-        return commentRepository.findAll();
+        return new Result<>(commentService.findAll());
     }
 
 }

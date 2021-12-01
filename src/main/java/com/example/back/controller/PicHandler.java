@@ -17,15 +17,42 @@ public class PicHandler {
 
     @Autowired
     private PicService picService;
+
     @GetMapping("/findAll")
-    public Result<List<Pic>> findAll()
-    {
+    public Result<List<Pic>> findAll() {
         return new Result<>(picService.findAll());
     }
+
     @GetMapping("/findById/{id}")
-    public Result<List<Pic>>findById(@PathVariable("id") Integer id)
-    {
+    public Result<List<Pic>> findById(@PathVariable("id") Integer id) {
 //        System.out.println("id="+id);
         return new Result<>(picService.findById(id));
     }
+
+    @GetMapping("/findByPlacesheng/{sheng}")
+    public Result<List<Pic>> findByPlacesheng(@PathVariable("sheng") String sheng) {
+//        System.out.println(sheng);
+        return new Result<>(picService.findByPlacesheng(sheng));
+    }
+
+    @GetMapping("/findByPlaceshi/{shi}")
+    private Result<List<Pic>> findByPlaceshi(@PathVariable("shi") String shi) {
+        return new Result<>(picService.findByPlaceshi(shi));
+    }
+
+    @GetMapping("/findByPlaceqv/{qv}")
+    private Result<List<Pic>> findByPlacesqv(@PathVariable("qv") String qv) {
+        return new Result<>(picService.findByPlaceqv(qv));
+    }
+
+    @GetMapping("/findByPlaceold/{name}")
+    private Result<List<Pic>> findByPlaceold(@PathVariable("name") String name) {
+        return new Result<>(picService.findByPlaceold(name));
+    }
+
+    @GetMapping("/findByTime/{t1}/{t2}")
+    private Result<List<Pic>> findByTime(@PathVariable("t1") String t1, @PathVariable("t2") String t2) {
+        return new Result<>(picService.findByTime('\'' + t1 + '\'', '\'' + t2 + '\''));
+    }
+//    private Result<List<Pic>>
 }
