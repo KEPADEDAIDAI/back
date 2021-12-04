@@ -52,7 +52,14 @@ public class PicHandler {
 
     @GetMapping("/findByTime/{t1}/{t2}")
     private Result<List<Pic>> findByTime(@PathVariable("t1") String t1, @PathVariable("t2") String t2) {
-        return new Result<>(picService.findByTime('\'' + t1 + '\'', '\'' + t2 + '\''));
+        System.out.println(t1);
+        return new Result<>(picService.findByTime(t1,t2));
     }
-//    private Result<List<Pic>>
+
+//    @RequestMapping("/setPic")
+//    private Result<List<Pic>> setPic(@RequestBody Pic entity)
+//    {
+//        String json =
+//    }
+
 }

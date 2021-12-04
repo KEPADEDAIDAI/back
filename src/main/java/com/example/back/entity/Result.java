@@ -16,7 +16,11 @@ public class Result<T> {
         this.msg = "success";
         this.data = data;
     }
-
+    public Result(String msg, Integer code)
+    {
+        this.code = code;
+        this.msg = msg;
+    }
     public int getCode() {
         return code;
     }

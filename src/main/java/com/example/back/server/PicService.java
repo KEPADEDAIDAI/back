@@ -37,8 +37,13 @@ public class PicService {
     }
 
     public List<Pic> findByTime(String t1, String t2){
-        System.out.println(t1);
-        System.out.println(t2);
+//        System.out.println(t1);
+//        System.out.println(t2);
         return picRepository.getPicsByTime(t1,t2);
+    }
+
+    public List<Pic> SavePic(Pic pic){
+        picRepository.save(pic);
+        return picRepository.getPicsByPname(pic.getPname());
     }
 }

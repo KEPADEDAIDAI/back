@@ -14,4 +14,10 @@ class PicRepositoryTest {
     void findAll(){
         System.out.println(picRepository.findAll());
     }
+
+    @Test
+    void getPicsByTime()
+    {
+        System.out.println(picRepository.getPicsByTime("2021-11-19", "2021-11-19"));
+    }
 }
