@@ -22,4 +22,6 @@ public interface PicRepository extends JpaRepository<Pic, Integer> {
     List<Pic> getPicsByTime(@Param("ts") String ts, @Param("te") String te);
 
     List<Pic> getPicsByPname(String name);
+
+    boolean existsByPname(String name);
 }

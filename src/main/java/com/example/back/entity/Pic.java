@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
@@ -13,11 +15,12 @@ import java.util.Objects;
 @Data
 public class Pic {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pid;
     private String purl;
     private String pname;
-    private Date ptimestart;
-    private Date ptimeend;
+    private String ptimestart;
+    private String ptimeend;
     private String pplacesheng;
     private String pplaceshi;
     private String pplaceqv;

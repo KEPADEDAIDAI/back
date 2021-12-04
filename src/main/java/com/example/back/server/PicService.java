@@ -5,6 +5,9 @@ import com.example.back.repository.PicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,22 +31,31 @@ public class PicService {
         return picRepository.getPicsByPplaceshi(shi);
     }
 
-    public List<Pic> findByPlaceqv(String qv){
+    public List<Pic> findByPlaceqv(String qv) {
         return picRepository.getPicsByPplaceqv(qv);
     }
 
-    public List<Pic> findByPlaceold(String name){
+    public List<Pic> findByPlaceold(String name) {
         return picRepository.getPicsByPplaceold(name);
     }
 
-    public List<Pic> findByTime(String t1, String t2){
+    public List<Pic> findByTime(String t1, String t2) {
 //        System.out.println(t1);
 //        System.out.println(t2);
-        return picRepository.getPicsByTime(t1,t2);
+        return picRepository.getPicsByTime(t1, t2);
     }
 
-    public List<Pic> SavePic(Pic pic){
-        picRepository.save(pic);
-        return picRepository.getPicsByPname(pic.getPname());
+    public boolean existsByPname(String name) {
+        return picRepository.existsByPname(name);
+    }
+
+    public List<Pic> SavePic(Pic pic) {
+        System.out.println("List<Pic> SavePic");
+        System.out.println(pic);
+        Pic pic1 = picRepository.saveAndFlush(pic);
+        System.out.println(pic1);
+        pic1.setPurl('/' + pic1.getPid().toString());
+
+        return new ArrayList<>(Collections.singletonList(picRepository.saveAndFlush(pic1)));
     }
 }

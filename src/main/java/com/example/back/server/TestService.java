@@ -15,4 +15,11 @@ public class TestService {
     public List<Test> findAll(){
         return testRepository.findAll();
     }
+
+    void SaveTest()
+    {
+        Test test = new Test();
+        test.setText("111");
+        testRepository.saveAndFlush(test);
+    }
 }

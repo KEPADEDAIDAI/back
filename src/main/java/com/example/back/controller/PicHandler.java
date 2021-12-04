@@ -7,13 +7,12 @@ import com.example.back.server.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pic")
 public class PicHandler {
-    @Autowired
-    private PicRepository picRepository;
 
     @Autowired
     private PicService picService;
@@ -56,10 +55,24 @@ public class PicHandler {
         return new Result<>(picService.findByTime(t1,t2));
     }
 
-//    @RequestMapping("/setPic")
-//    private Result<List<Pic>> setPic(@RequestBody Pic entity)
-//    {
-//        String json =
-//    }
+    @PostMapping ("/setPic")
+    private Result<List<Pic>> setPic(HttpServletRequest httpServletRequest)
+    {
+        System.out.println("node1");
+        Pic pic = new Pic();
+        pic.setPname(httpServletRequest.getParameter("pname"));
+        pic.setPplacesheng(httpServletRequest.getParameter("pplacesheng"));
+        pic.setPplaceshi(httpServletRequest.getParameter("pplaceshi"));
+        pic.setPplaceqv(httpServletRequest.getParameter("pplaceqv"));
+        pic.setPplaceold(httpServletRequest.getParameter("pplaceold"));
+        pic.setPtxt(httpServletRequest.getParameter("ptxt"));
+        pic.setPtimestart(httpServletRequest.getParameter("ptimestart"));
+        pic.setPtimeend(httpServletRequest.getParameter("ptimeend"));
+        System.out.println("node2");
+        if(picService.existsByPname(pic.getPname())){
+            return new Result<>("该名称已经存在", 0);
+        }
+        return new Result<>(picService.SavePic(pic));
+    }
 
 }
