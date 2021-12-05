@@ -58,7 +58,6 @@ public class PicHandler {
     @PostMapping ("/setPic")
     private Result<List<Pic>> setPic(HttpServletRequest httpServletRequest)
     {
-        System.out.println("node1");
         Pic pic = new Pic();
         pic.setPname(httpServletRequest.getParameter("pname"));
         pic.setPplacesheng(httpServletRequest.getParameter("pplacesheng"));
@@ -68,11 +67,21 @@ public class PicHandler {
         pic.setPtxt(httpServletRequest.getParameter("ptxt"));
         pic.setPtimestart(httpServletRequest.getParameter("ptimestart"));
         pic.setPtimeend(httpServletRequest.getParameter("ptimeend"));
-        System.out.println("node2");
-        if(picService.existsByPname(pic.getPname())){
-            return new Result<>("该名称已经存在", 0);
-        }
+//        if(picService.existsByPname(pic.getPname())){
+//            return new Result<>("该名称已经存在", 201);
+//        }//名字不可重复
+
         return new Result<>(picService.SavePic(pic));
     }
+    @GetMapping("/del/{id}")
+    private Result<List<Pic>> Del(@PathVariable("id") Integer id)
+    {
 
+        if(!picService.existsByPid(id))
+        {
+            return new Result<>("该id图片不存在", 102);
+        }
+        picService.DelByPid(id);
+        return new Result<>("success",1);
+    }
 }

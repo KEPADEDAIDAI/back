@@ -11,12 +11,13 @@ class TesRepositoryTest {
     @Autowired
     private TesRepository tesRepository;
 
-    @Test
-    public void TesSave()
-    {
-        Tes tes = new Tes();
-        tes.setTxt("sixth");
-        System.out.println(tesRepository.saveAndFlush(tes));
+//    @Test
+//    public void TesSave()
+//    {
+//        Tes tes = new Tes();
+//        tes.setTxt("sixth");
+//        System.out.println(tesRepository.saveAndFlush(tes));
+//
+//    }
 
-    }
 }

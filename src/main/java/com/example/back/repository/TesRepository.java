@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TesRepository extends JpaRepository<Tes, Integer> {
 
-
+    void deleteById(Integer id);
 }

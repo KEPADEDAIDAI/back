@@ -3,6 +3,8 @@ package com.example.back.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 
 public class Logininfo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer loadid;
     private Integer uid;
     private String loadtime;

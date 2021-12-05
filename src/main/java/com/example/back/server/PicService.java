@@ -40,8 +40,6 @@ public class PicService {
     }
 
     public List<Pic> findByTime(String t1, String t2) {
-//        System.out.println(t1);
-//        System.out.println(t2);
         return picRepository.getPicsByTime(t1, t2);
     }
 
@@ -49,13 +47,23 @@ public class PicService {
         return picRepository.existsByPname(name);
     }
 
-    public List<Pic> SavePic(Pic pic) {
-        System.out.println("List<Pic> SavePic");
-        System.out.println(pic);
-        Pic pic1 = picRepository.saveAndFlush(pic);
-        System.out.println(pic1);
-        pic1.setPurl('/' + pic1.getPid().toString());
+    public boolean existsByPid(Integer id) {
+        return picRepository.existsByPid(id);
+    }
 
-        return new ArrayList<>(Collections.singletonList(picRepository.saveAndFlush(pic1)));
+    public List<Pic> SavePic(Pic pic) {
+//        System.out.println("List<Pic> SavePic");
+//        System.out.println(pic);
+        Pic pic1 = picRepository.save(pic);
+//        System.out.println(pic1);
+        pic1.setPurl('/' + pic1.getPid().toString());
+        List<Pic> list = new ArrayList<>();
+        list.add(picRepository.save(pic1));
+        return list;
+    }
+
+    public void DelByPid(Integer id)
+    {
+        picRepository.deleteByPid(id);
     }
 }

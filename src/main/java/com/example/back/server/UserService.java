@@ -17,5 +17,12 @@ public class UserService {
         return userReponsitory.findAll();
     }
 
+    public List<User> findByName(String name)
+    {
+        return userReponsitory.findUserByUname(name);
+    }
 
+    public boolean existsByName(String name){
+        return userReponsitory.existsByUname(name);
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface PicRepository extends JpaRepository<Pic, Integer> {
@@ -24,4 +25,9 @@ public interface PicRepository extends JpaRepository<Pic, Integer> {
     List<Pic> getPicsByPname(String name);
 
     boolean existsByPname(String name);
+
+    boolean existsByPid(Integer id);
+
+    @Transactional
+    void deleteByPid(Integer id);
 }
