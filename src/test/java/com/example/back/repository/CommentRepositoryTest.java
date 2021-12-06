@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommentRepositoryTest {
     @Autowired
     private CommentRepository commentRepository;
-    @Test
-    void findAll()
-    {
-        System.out.println(commentRepository.findAll());
-    }
+//    @Test
+//    void findAll()
+//    {
+//        System.out.println(commentRepository.findAll());
+//    }
 }

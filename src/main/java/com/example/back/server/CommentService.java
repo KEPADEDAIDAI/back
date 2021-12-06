@@ -5,6 +5,7 @@ import com.example.back.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,4 +23,19 @@ public class CommentService {
 
     public List<Comment> getCommentByUid(Integer id) { return commentRepository.getCommentsByUid(id);}
 
+    public List<Comment> SaveComment(Comment comment)
+    {
+        List<Comment> list = new ArrayList<>();
+        list.add(commentRepository.save(comment));
+        return list;
+    }
+
+    public boolean existsByPid(Integer id)
+    {
+        return commentRepository.existsByPid(id);
+    }
+    public boolean existsByUid(Integer id)
+    {
+        return commentRepository.existsByUid(id);
+    }
 }

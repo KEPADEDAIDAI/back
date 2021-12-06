@@ -11,9 +11,9 @@ class HistoryReposotoryTest {
     @Autowired
     private HistoryReposotory historyReposotory;
 
-    @Test
-    void findAll()
-    {
-        System.out.println(historyReposotory.findAll());
-    }
+//    @Test
+//    void findAll()
+//    {
+//        System.out.println(historyReposotory.findAll());
+//    }
 }

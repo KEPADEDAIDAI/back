@@ -18,9 +18,9 @@ class UserReponsitoryTest {
 
     @Autowired
     private UserReponsitory userReponsitory;
-
-    @Test
-    void findAll(){System.out.println(userReponsitory.findAll());}
+//
+//    @Test
+//    void findAll(){System.out.println(userReponsitory.findAll());}
 
 //    @Test
 //    void UserSave()

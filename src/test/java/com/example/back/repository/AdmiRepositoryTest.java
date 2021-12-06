@@ -10,9 +10,9 @@ class AdmiRepositoryTest {
     @Autowired
     private AdmiRepository admiRepository;
 
-    @Test
-    void findAll()
-    {
-        System.out.println(admiRepository.findAll());
-    }
+//    @Test
+//    void findAll()
+//    {
+//        System.out.println(admiRepository.findAll());
+//    }
 }
