@@ -2,7 +2,6 @@ package com.example.back.controller;
 
 import com.example.back.entity.History;
 import com.example.back.entity.Result;
-import com.example.back.repository.HistoryReposotory;
 import com.example.back.server.HistoryService;
 import com.example.back.server.PicService;
 import com.example.back.server.UserService;
@@ -58,7 +57,7 @@ public class HistoryHandler {
         history.setUid(Integer.valueOf(uid));
         if(!picService.existsByPid(history.getPid()))
             return new Result<>("指定图片不存在",403);
-        if(!userService.existsByUid(history.getUid()))
+        if(userService.existsByUid(history.getUid()))
             return new Result<>("指定用户不存在", 404);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         history.setLtime(sdf.format(new Date()));

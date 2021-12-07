@@ -44,11 +44,11 @@ public class PicService {
     }
 
     public boolean existsByPname(String name) {
-        return picRepository.existsByPname(name);
+        return picRepository.existsPicByPname(name);
     }
 
     public boolean existsByPid(Integer id) {
-        return picRepository.existsByPid(id);
+        return picRepository.existsPicByPid(id);
     }
 
     public List<Pic> SavePic(Pic pic) {
@@ -64,6 +64,6 @@ public class PicService {
 
     public void DelByPid(Integer id)
     {
-        picRepository.deleteByPid(id);
+        picRepository.deletePicByPid(id);
     }
 }

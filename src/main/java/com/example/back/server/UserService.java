@@ -7,6 +7,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,16 +45,35 @@ public class UserService {
         return userReponsitory.findUserByUid(id);
     }
     public boolean existsByName(String name) {
-        return userReponsitory.existsByUname(name);
+        return userReponsitory.existsUserByUname(name);
     }
 
     public boolean existsByUid(Integer id) {
-        return userReponsitory.existsByUid(id);
+        return userReponsitory.existsUserByUid(id);
     }
 
     public boolean existsByEmail(String Email) {
-        return userReponsitory.existsByEmail(Email);
+        return userReponsitory.existsUserByEmail(Email);
     }
-
-
+    public List<User> SaveUser(User user)
+    {
+        List<User> list = new ArrayList<>();
+        list.add(userReponsitory.save(user));
+        return list;
+    }
+    public void del(Integer uid)
+    {
+        userReponsitory.deleteUserByUid(uid);
+    }
+    public void resetPassEmail(String address)
+    {
+        User user = userReponsitory.findUserByEmail(address).get(0);
+        int code = (int)((Math.random()*9+1)*100000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        user.setRepasstime(sdf.format(new Date(now.getTime()+600000)));
+        user.setRepass(String.valueOf(code));
+        userReponsitory.save(user);
+        this.sendEmail(address,String.valueOf(code));
+    }
 }

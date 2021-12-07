@@ -30,12 +30,11 @@ public class CommentService {
         return list;
     }
 
-    public boolean existsByPid(Integer id)
-    {
-        return commentRepository.existsByPid(id);
+    public boolean existsByPid(Integer id) {
+        return commentRepository.existsCommentByPid(id);
     }
     public boolean existsByUid(Integer id)
     {
-        return commentRepository.existsByUid(id);
+        return commentRepository.existsCommentByUid(id);
     }
 }

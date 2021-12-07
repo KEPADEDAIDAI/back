@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UsertempService {
@@ -29,5 +30,12 @@ public class UsertempService {
         usertemp.setTtime(sdf.format(new Date(now.getTime()+600000)));
         usertempRepository.save(usertemp);
         userService.sendEmail(mail, usertemp.getTcode());
+    }
+    public boolean existsByEmail(String email){
+        return usertempRepository.existsUsertempByTmail(email);
+    }
+    public List<Usertemp> findByEmail(String email)
+    {
+        return usertempRepository.findUsertempByTmail(email);
     }
 }

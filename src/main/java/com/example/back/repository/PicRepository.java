@@ -24,10 +24,10 @@ public interface PicRepository extends JpaRepository<Pic, Integer> {
 
     List<Pic> getPicsByPname(String name);
 
-    boolean existsByPname(String name);
+    boolean existsPicByPname(String name);
 
-    boolean existsByPid(Integer id);
+    boolean existsPicByPid(Integer id);
 
     @Transactional
-    void deleteByPid(Integer id);
+    void deletePicByPid(Integer id);
 }

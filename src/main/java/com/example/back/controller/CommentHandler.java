@@ -3,7 +3,6 @@ package com.example.back.controller;
 
 import com.example.back.entity.Comment;
 import com.example.back.entity.Result;
-import com.example.back.repository.CommentRepository;
 import com.example.back.server.CommentService;
 import com.example.back.server.PicService;
 import com.example.back.server.UserService;
@@ -62,7 +61,7 @@ public class CommentHandler {
         {
             return new Result<>("传入图片不存在", 303);
         }
-        if(!userService.existsByUid(comment.getUid())){
+        if(userService.existsByUid(comment.getUid())){
             return new Result<>("传入用户不存在", 304);
         }
         comment.setPltxt(httpServletRequest.getParameter("pltxt"));

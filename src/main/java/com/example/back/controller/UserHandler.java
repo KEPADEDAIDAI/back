@@ -3,6 +3,7 @@ package com.example.back.controller;
 
 import com.example.back.entity.Result;
 import com.example.back.entity.User;
+import com.example.back.entity.Usertemp;
 import com.example.back.server.LogininfoService;
 import com.example.back.server.UserService;
 import com.example.back.server.UsertempService;
@@ -11,7 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/user")
@@ -74,12 +80,108 @@ public class UserHandler {
             return new Result<>("该用户已存在", 203);
         }
         usertempService.register(email);
-        return new Result<>("邮件发送成功", 204);
+        return new Result<>("success", 1);
     }
-
-//    @PostMapping("/add")
-//    public Result<List<User>> add(HttpServletRequest request)
-//    {
-//        User user = new User();
-//    }
+    @GetMapping("/resetPassSentEmail/{email}")
+    public Result<List<User>> resetPassSentEmail(@PathVariable("email") String email)
+    {
+        if(!userService.existsByEmail(email)) return new Result<>("该用户不存在", 212);
+        userService.resetPassEmail(email);
+        return new Result<>("success", 1);
+    }
+    @PostMapping("/add")
+    public Result<List<User>> add(HttpServletRequest request)
+    {
+        User user = new User();
+        user.setEmail(request.getParameter("email"));
+        if(userService.existsByEmail(user.getEmail()))
+        {
+            return new Result<>("该用户邮箱已存在",205);
+        }
+        if(!usertempService.existsByEmail(user.getEmail()))
+        {
+            return new Result<>("该用户还没发注册邮件，请先发注册邮件",206);
+        }
+        long now = new Date().getTime();
+        String tempCode = request.getParameter("tempcode");
+        Usertemp tmp = usertempService.findByEmail(user.getEmail()).get(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+            Date ned = sdf.parse(tmp.getTtime());
+            long need = ned.getTime();
+            if(now > need)
+            {
+                return new Result<>("验证码已过期", 207);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(!tempCode.equals(tmp.getTcode()))
+        {
+            return new Result<>("验证码错误",208);
+        }
+        String pas = request.getParameter("upass");
+        if(pas==null)
+        {
+            return new Result<>("密码为空",209);
+        }
+        user.setUpass(Md5.md5(pas));
+        user.setUname(request.getParameter("uname"));
+        if(user.getUname()==null) user.setUname(user.getEmail());
+        user.setRepasstime(sdf.format(new Date()));
+        user.setPhone(request.getParameter("phone"));
+        return new Result<>(userService.SaveUser(user));
+    }
+    @GetMapping("/del/{uid}")
+    public Result<List<User>> del(@PathVariable("uid") Integer uid)
+    {
+        if(!userService.existsByUid(uid))
+        {
+            return new Result<>("该用户不存在", 210);
+        }
+        userService.del(uid);
+        return new Result<>("success", 1);
+    }
+    @PostMapping("/resetInfo")
+    public Result<List<User>> resetInfo(HttpServletRequest request)
+    {
+        String email = request.getParameter("email");
+        if(!userService.existsByEmail(email))
+        {
+            return new Result<>("用户不存在", 211);
+        }
+        User user = userService.findByEmail(email).get(0);
+        String uname = request.getParameter("uname");
+        if(uname!=null) user.setUname(uname);
+        String phone = request.getParameter("phone");
+        if(phone != null) user.setUname(phone);
+        return  new Result<>(userService.SaveUser(user));
+    }
+    @PostMapping("/resetPass")
+    public Result<List<User>> resetPass(HttpServletRequest request)
+    {
+        String email = request.getParameter("email");
+        if(!userService.existsByEmail(email)) return new Result<>("该用户不存在", 212);
+        User user = userService.findByEmail("email").get(0);
+        String tempCode = request.getParameter("repass");
+        long now = new Date().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+            Date ned = sdf.parse(user.getRepasstime());
+            long need = ned.getTime();
+            if(now > need)
+            {
+                return new Result<>("验证码已过期", 207);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(!Objects.equals(tempCode, user.getRepass()))
+            return new Result<>("验证码错误", 208);
+        String pass = request.getParameter("upass");
+        if(pass==null)
+            return new Result<>("密码为空", 209);
+        user.setUpass(Md5.md5(pass));
+        return new Result<>(userService.SaveUser(user));
+    }
 }

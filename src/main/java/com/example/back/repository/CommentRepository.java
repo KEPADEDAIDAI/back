@@ -8,6 +8,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> getCommentsByPid(Integer id);
     List<Comment> getCommentsByUid(Integer id);
-    boolean existsByPid(Integer id);
-    boolean existsByUid(Integer id);
+    boolean existsCommentByPid(Integer id);
+    boolean existsCommentByUid(Integer id);
 }
