@@ -11,9 +11,9 @@ class LogininfoReponsitoryTest {
     @Autowired
     private LogininfoReponsitory logininfoReponsitory;
 
-    @Test
-    void findAll()
-    {
-        System.out.println(logininfoReponsitory.findAll());
-    }
+//    @Test
+//    void findAll()
+//    {
+//        System.out.println(logininfoReponsitory.findAll());
+//    }
 }

@@ -5,6 +5,7 @@ import com.example.back.entity.Result;
 import com.example.back.repository.PicRepository;
 import com.example.back.server.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/pic")
 public class PicHandler {
+
+
 
     @Autowired
     private PicService picService;

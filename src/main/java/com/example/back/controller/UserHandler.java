@@ -152,7 +152,7 @@ public class UserHandler {
         String uname = request.getParameter("uname");
         if(uname!=null) user.setUname(uname);
         String phone = request.getParameter("phone");
-        if(phone != null) user.setUname(phone);
+        if(phone != null) user.setPhone(phone);
         return  new Result<>(userService.SaveUser(user));
     }
     @PostMapping("/resetPass")

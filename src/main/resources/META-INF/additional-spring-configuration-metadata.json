@@ -4,5 +4,5 @@
       "name": "spring.mail.passowrd",
       "type": "java.lang.String",
       "description": "Description for spring.mail.passowrd."
-  }
-] }
+    }
+  ] }
