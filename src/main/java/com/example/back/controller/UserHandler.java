@@ -4,6 +4,7 @@ package com.example.back.controller;
 import com.example.back.entity.Result;
 import com.example.back.entity.User;
 import com.example.back.entity.Usertemp;
+import com.example.back.entity.request.LoginRequest;
 import com.example.back.server.LogininfoService;
 import com.example.back.server.UserService;
 import com.example.back.server.UsertempService;
@@ -35,17 +36,14 @@ public class UserHandler {
     }
 
     @PostMapping("/login")
-    public Result<List<User>> login(HttpServletRequest request)
+    public Result<List<User>> login(HttpServletRequest request, @RequestBody LoginRequest loginRequest)
     {
-
-        String email = request.getParameter("email");
-        String pass = request.getParameter("upass");
-        if(!userService.existsByEmail(email))
+        if(!userService.existsByEmail(loginRequest.getEmail()))
         {
             return new Result<>("该用户不存在", 202);
         }
-        List<User> list = userService.findByEmail(email);
-        String pas = Md5.md5(pass);
+        List<User> list = userService.findByEmail(loginRequest.getEmail());
+        String pas = Md5.md5(loginRequest.getUpass());
         if(pas==null)
             return new Result<>("输入密码为空", 203);
         if(pas.equals(list.get(0).getUpass())){
