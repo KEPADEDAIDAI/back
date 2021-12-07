@@ -38,7 +38,7 @@ public class UserService {
         return userReponsitory.findUserByUname(name);
     }
     public List<User> findByEmail(String Email) {
-        return userReponsitory.findUserByEmail(Email);
+        return userReponsitory.findUsersByEmail(Email);
     }
     public List<User> findById(Integer id)
     {
@@ -67,7 +67,7 @@ public class UserService {
     }
     public void resetPassEmail(String address)
     {
-        User user = userReponsitory.findUserByEmail(address).get(0);
+        User user = userReponsitory.findUsersByEmail(address).get(0);
         int code = (int)((Math.random()*9+1)*100000);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
