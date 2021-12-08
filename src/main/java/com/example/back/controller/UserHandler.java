@@ -5,6 +5,9 @@ import com.example.back.entity.Result;
 import com.example.back.entity.User;
 import com.example.back.entity.Usertemp;
 import com.example.back.entity.request.LoginRequest;
+import com.example.back.entity.request.ResetInfoRequest;
+import com.example.back.entity.request.ResetPassRequest;
+import com.example.back.entity.request.UserAddRequest;
 import com.example.back.server.LogininfoService;
 import com.example.back.server.UserService;
 import com.example.back.server.UsertempService;
@@ -88,10 +91,10 @@ public class UserHandler {
         return new Result<>("success", 1);
     }
     @PostMapping("/add")
-    public Result<List<User>> add(HttpServletRequest request)
+    public Result<List<User>> add(@RequestBody UserAddRequest userAddRequest)
     {
         User user = new User();
-        user.setEmail(request.getParameter("email"));
+        user.setEmail(userAddRequest.getEmail());
         if(userService.existsByEmail(user.getEmail()))
         {
             return new Result<>("该用户邮箱已存在",205);
@@ -101,7 +104,7 @@ public class UserHandler {
             return new Result<>("该用户还没发注册邮件，请先发注册邮件",206);
         }
         long now = new Date().getTime();
-        String tempCode = request.getParameter("tempcode");
+        String tempCode = userAddRequest.getTempcode();
         Usertemp tmp = usertempService.findByEmail(user.getEmail()).get(0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try{
@@ -118,16 +121,17 @@ public class UserHandler {
         {
             return new Result<>("验证码错误",208);
         }
-        String pas = request.getParameter("upass");
+        String pas = userAddRequest.getUpass();
         if(pas==null)
         {
             return new Result<>("密码为空",209);
         }
         user.setUpass(Md5.md5(pas));
-        user.setUname(request.getParameter("uname"));
-        if(user.getUname()==null) user.setUname(user.getEmail());
+        user.setUname(userAddRequest.getUname());
+        int code = (int)((Math.random()*9+1)*1000000);
+        if(user.getUname()==null) user.setUname("游客"+code);
         user.setRepasstime(sdf.format(new Date()));
-        user.setPhone(request.getParameter("phone"));
+        user.setPhone(userAddRequest.getPhone());
         return new Result<>(userService.SaveUser(user));
     }
     @GetMapping("/del/{uid}")
@@ -141,27 +145,27 @@ public class UserHandler {
         return new Result<>("success", 1);
     }
     @PostMapping("/resetInfo")
-    public Result<List<User>> resetInfo(HttpServletRequest request)
+    public Result<List<User>> resetInfo(@RequestBody ResetInfoRequest resetInfoRequest)
     {
-        String email = request.getParameter("email");
+        String email = resetInfoRequest.getEmail();
         if(!userService.existsByEmail(email))
         {
             return new Result<>("用户不存在", 211);
         }
         User user = userService.findByEmail(email).get(0);
-        String uname = request.getParameter("uname");
+        String uname = resetInfoRequest.getUname();
         if(uname!=null) user.setUname(uname);
-        String phone = request.getParameter("phone");
+        String phone = resetInfoRequest.getPhone();
         if(phone != null) user.setPhone(phone);
         return  new Result<>(userService.SaveUser(user));
     }
     @PostMapping("/resetPass")
-    public Result<List<User>> resetPass(HttpServletRequest request)
+    public Result<List<User>> resetPass(@RequestBody ResetPassRequest resetPassRequest)
     {
-        String email = request.getParameter("email");
+        String email = resetPassRequest.getEmail();
         if(!userService.existsByEmail(email)) return new Result<>("该用户不存在", 212);
         User user = userService.findByEmail("email").get(0);
-        String tempCode = request.getParameter("repass");
+        String tempCode = resetPassRequest.getRepass();
         long now = new Date().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try{
@@ -176,7 +180,7 @@ public class UserHandler {
         }
         if(!Objects.equals(tempCode, user.getRepass()))
             return new Result<>("验证码错误", 208);
-        String pass = request.getParameter("upass");
+        String pass = resetPassRequest.getUpass();
         if(pass==null)
             return new Result<>("密码为空", 209);
         user.setUpass(Md5.md5(pass));

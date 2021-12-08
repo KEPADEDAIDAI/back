@@ -3,6 +3,7 @@ package com.example.back.controller;
 
 import com.example.back.entity.Comment;
 import com.example.back.entity.Result;
+import com.example.back.entity.request.AddCommentRequest;
 import com.example.back.server.CommentService;
 import com.example.back.server.PicService;
 import com.example.back.server.UserService;
@@ -44,10 +45,10 @@ public class CommentHandler {
     }
 
     @PostMapping("/addComment")
-    public Result<List<Comment>> addComment(HttpServletRequest httpServletRequest){
+    public Result<List<Comment>> addComment(AddCommentRequest addCommentRequest){
         Comment comment = new Comment();
-        String pid = httpServletRequest.getParameter("pid");
-        String uid = httpServletRequest.getParameter("uid");
+        String pid = addCommentRequest.getPid();
+        String uid = addCommentRequest.getUid();
         if(!checkInt.check(pid))
         {
             return new Result<>("图片id不是整数",301);
@@ -64,7 +65,7 @@ public class CommentHandler {
         if(userService.existsByUid(comment.getUid())){
             return new Result<>("传入用户不存在", 304);
         }
-        comment.setPltxt(httpServletRequest.getParameter("pltxt"));
+        comment.setPltxt(addCommentRequest.getPltxt());
         if(comment.getPltxt()==null)
         {
             return new Result<>("传入评论内容为空", 305);

@@ -2,6 +2,7 @@ package com.example.back.controller;
 
 import com.example.back.entity.Pic;
 import com.example.back.entity.Result;
+import com.example.back.entity.request.SetPicRequest;
 import com.example.back.repository.PicRepository;
 import com.example.back.server.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,21 +60,17 @@ public class PicHandler {
     }
 
     @PostMapping ("/setPic")
-    private Result<List<Pic>> setPic(HttpServletRequest httpServletRequest)
+    private Result<List<Pic>> setPic(@RequestBody SetPicRequest setPicRequest)
     {
         Pic pic = new Pic();
-        pic.setPname(httpServletRequest.getParameter("pname"));
-        pic.setPplacesheng(httpServletRequest.getParameter("pplacesheng"));
-        pic.setPplaceshi(httpServletRequest.getParameter("pplaceshi"));
-        pic.setPplaceqv(httpServletRequest.getParameter("pplaceqv"));
-        pic.setPplaceold(httpServletRequest.getParameter("pplaceold"));
-        pic.setPtxt(httpServletRequest.getParameter("ptxt"));
-        pic.setPtimestart(httpServletRequest.getParameter("ptimestart"));
-        pic.setPtimeend(httpServletRequest.getParameter("ptimeend"));
-//        if(picService.existsByPname(pic.getPname())){
-//            return new Result<>("该名称已经存在", 201);
-//        }//名字不可重复
-
+        pic.setPname(setPicRequest.getPname());
+        pic.setPplacesheng(setPicRequest.getPplacesheng());
+        pic.setPplaceshi(setPicRequest.getPplaceshi());
+        pic.setPplaceqv(setPicRequest.getPplaceqv());
+        pic.setPplaceold(setPicRequest.getPplaceold());
+        pic.setPtxt(setPicRequest.getPtxt());
+        pic.setPtimestart(setPicRequest.getPtimestart());
+        pic.setPtimeend(setPicRequest.getPtimeend());
         return new Result<>(picService.SavePic(pic));
     }
     @GetMapping("/del/{id}")

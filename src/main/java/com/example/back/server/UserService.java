@@ -23,7 +23,7 @@ public class UserService {
     public void sendEmail(String address, String code)
     {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setSubject("民族图像展馆注册验证码");
+        message.setSubject("民族图像展馆验证码");
         message.setFrom("kepadedaidai@163.com");
         message.setTo(address);
         message.setSentDate(new Date());

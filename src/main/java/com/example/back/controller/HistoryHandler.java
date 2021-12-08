@@ -2,6 +2,7 @@ package com.example.back.controller;
 
 import com.example.back.entity.History;
 import com.example.back.entity.Result;
+import com.example.back.entity.request.AddhistoryRequest;
 import com.example.back.server.HistoryService;
 import com.example.back.server.PicService;
 import com.example.back.server.UserService;
@@ -44,10 +45,10 @@ public class HistoryHandler {
     }
 
     @PostMapping("/add")
-    public Result<List<History>> add(HttpServletRequest request)
+    public Result<List<History>> add(@RequestBody AddhistoryRequest addhistoryRequest)
     {
-        String uid = request.getParameter("uid");
-        String pid = request.getParameter("pid");
+        String uid = addhistoryRequest.getUid();
+        String pid = addhistoryRequest.getPid();
         if(!checkInt.check(uid))
             return new Result<>("用户id不是整数", 401);
         if(!checkInt.check(pid))
