@@ -3,11 +3,11 @@ package com.example.back.server;
 import com.example.back.entity.Pic;
 import com.example.back.repository.PicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,5 +65,10 @@ public class PicService {
     public void DelByPid(Integer id)
     {
         picRepository.deletePicByPid(id);
+    }
+    public List<Pic> findAllByPages(PageRequest pageRequest)
+    {
+        Page<Pic> page = picRepository.findAll(pageRequest);
+        return page.getContent();
     }
 }

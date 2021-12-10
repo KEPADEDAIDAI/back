@@ -1,6 +1,8 @@
 package com.example.back.repository;
 
 import com.example.back.entity.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

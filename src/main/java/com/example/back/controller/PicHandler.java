@@ -7,6 +7,8 @@ import com.example.back.repository.PicRepository;
 import com.example.back.server.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,15 +75,22 @@ public class PicHandler {
 //        pic.setPtimeend(setPicRequest.getPtimeend());
 //        return new Result<>(picService.SavePic(pic));
 //    }
-    @GetMapping("/del/{id}")
-    private Result<List<Pic>> Del(@PathVariable("id") Integer id)
-    {
-
-        if(!picService.existsByPid(id))
-        {
-            return new Result<>("该id图片不存在", 102);
-        }
-        picService.DelByPid(id);
-        return new Result<>("success",1);
-    }
+//    @GetMapping("/del/{id}") // 删除图片
+//    private Result<List<Pic>> Del(@PathVariable("id") Integer id)
+//    {
+//
+//        if(!picService.existsByPid(id))
+//        {
+//            return new Result<>("该id图片不存在", 102);
+//        }
+//        picService.DelByPid(id);
+//        return new Result<>("success",1);
+//    }
+//    @GetMapping("test/{pageSize}/{pageNo}")
+//    private String test(@PathVariable("pageSize") Integer pageSize, @PathVariable("pageNo") Integer pageNo)
+//    {
+//        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+//        List<Pic> list = picService.findByPidPages(pageRequest,1);
+//        return list.toString();
+//    }
 }
