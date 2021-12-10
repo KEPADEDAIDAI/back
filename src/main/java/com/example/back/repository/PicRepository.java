@@ -19,7 +19,7 @@ public interface PicRepository extends JpaRepository<Pic, Integer> {
 
     List<Pic> getPicsByPplaceold(String name);
 
-    @Query(value = "SELECT * FROM pic WHERE ( :ts >= pic.ptimestart AND :ts <= pic.ptimeend) OR (:te <= pic.ptimeend AND pic.ptimestart <= :te)", nativeQuery = true)
+    @Query(value = "SELECT * FROM pic WHERE ( (:ts) >= pic.ptsnian AND (:ts) <= pic.ptenian) OR ((:te) <= pic.ptenian AND pic.ptsnian <= (:te)) OR ( (:ts) <= pic.ptsnian AND (:te) >= pic.ptenian) OR ((:ts)>=pic.ptsnian AND (:te) <= pic.ptenian)", nativeQuery = true)
     List<Pic> getPicsByTime(@Param("ts") String ts, @Param("te") String te);
 
     List<Pic> getPicsByPname(String name);

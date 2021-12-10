@@ -27,7 +27,7 @@ public class UserService {
         message.setFrom("kepadedaidai@163.com");
         message.setTo(address);
         message.setSentDate(new Date());
-        message.setText("您的验证码是 " + code + " 验证码10分钟内有效,如果这不是您的操作，请忽略这封邮件");
+        message.setText("您的验证码是" + code + ",验证码10分钟内有效,如果这不是您的操作，请忽略这封邮件");
         javaMailSender.send(message);
     }
     public List<User> findAll() {

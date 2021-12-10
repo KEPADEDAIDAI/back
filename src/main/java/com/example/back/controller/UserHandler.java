@@ -4,10 +4,7 @@ package com.example.back.controller;
 import com.example.back.entity.Result;
 import com.example.back.entity.User;
 import com.example.back.entity.Usertemp;
-import com.example.back.entity.request.LoginRequest;
-import com.example.back.entity.request.ResetInfoRequest;
-import com.example.back.entity.request.ResetPassRequest;
-import com.example.back.entity.request.UserAddRequest;
+import com.example.back.entity.request.*;
 import com.example.back.server.LogininfoService;
 import com.example.back.server.UserService;
 import com.example.back.server.UsertempService;
@@ -73,9 +70,10 @@ public class UserHandler {
     {
         return new Result<>(userService.findByName(name));
     }
-    @GetMapping("/registerSentEmail/{email}")
-    public Result<List<User>> registerSentEmail(@PathVariable("email") String email)
+    @PostMapping("/registerSentEmail")
+    public Result<List<User>> registerSentEmail(@RequestBody EmailRequest emailRequest)
     {
+        String email = emailRequest.getEmail();
         if(userService.existsByEmail(email))
         {
             return new Result<>("该用户已存在", 203);
@@ -83,9 +81,10 @@ public class UserHandler {
         usertempService.register(email);
         return new Result<>("success", 1);
     }
-    @GetMapping("/resetPassSentEmail/{email}")
-    public Result<List<User>> resetPassSentEmail(@PathVariable("email") String email)
+    @PostMapping("/resetPassSentEmail")
+    public Result<List<User>> resetPassSentEmail(@RequestBody EmailRequest emailRequest)
     {
+        String email = emailRequest.getEmail();
         if(!userService.existsByEmail(email)) return new Result<>("该用户不存在", 212);
         userService.resetPassEmail(email);
         return new Result<>("success", 1);
@@ -157,6 +156,14 @@ public class UserHandler {
         if(uname!=null) user.setUname(uname);
         String phone = resetInfoRequest.getPhone();
         if(phone != null) user.setPhone(phone);
+        String sex = resetInfoRequest.getSex();
+        if(sex!=null) user.setSex(sex);
+        String birthday = resetInfoRequest.getBirthday();
+        if(birthday!=null) user.setBirthday(birthday);
+        String qq = resetInfoRequest.getQq();
+        if(qq!=null) user.setQq(qq);
+        String wechat = resetInfoRequest.getWechat();
+        if(wechat!=null) user.setWechat(wechat);
         return  new Result<>(userService.SaveUser(user));
     }
     @PostMapping("/resetPass")
@@ -185,5 +192,11 @@ public class UserHandler {
             return new Result<>("密码为空", 209);
         user.setUpass(Md5.md5(pass));
         return new Result<>(userService.SaveUser(user));
+    }
+    @GetMapping("/ssend")
+    public Result<List<User>> ssend()
+    {
+        userService.sendEmail("sunabrhh@foxmail.com", "test");
+        return new Result<>("success", 1234567);
     }
 }

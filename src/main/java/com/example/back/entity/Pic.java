@@ -19,8 +19,12 @@ public class Pic {
     private Integer pid;
     private String purl;
     private String pname;
-    private String ptimestart;
-    private String ptimeend;
+    private Integer ptsnian;
+    private Integer ptsyue;
+    private Integer ptsri;
+    private Integer ptenian;
+    private Integer pteyue;
+    private Integer pteri;
     private String pplacesheng;
     private String pplaceshi;
     private String pplaceqv;

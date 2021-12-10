@@ -1,5 +1,6 @@
 package com.example.back.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,9 +15,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
     private String uname;
+    @JsonIgnore
     private String upass;
+    @JsonIgnore
     private String repass;
+    @JsonIgnore
     private String repasstime;
     private String email;
     private String phone;
+    private String sex;
+    private String birthday;
+    private String qq;
+    private String wechat;
 }

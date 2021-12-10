@@ -55,24 +55,24 @@ public class PicHandler {
 
     @GetMapping("/findByTime/{t1}/{t2}")
     private Result<List<Pic>> findByTime(@PathVariable("t1") String t1, @PathVariable("t2") String t2) {
-        System.out.println(t1);
+//        System.out.println(t1);
         return new Result<>(picService.findByTime(t1,t2));
     }
 
-    @PostMapping ("/setPic")
-    private Result<List<Pic>> setPic(@RequestBody SetPicRequest setPicRequest)
-    {
-        Pic pic = new Pic();
-        pic.setPname(setPicRequest.getPname());
-        pic.setPplacesheng(setPicRequest.getPplacesheng());
-        pic.setPplaceshi(setPicRequest.getPplaceshi());
-        pic.setPplaceqv(setPicRequest.getPplaceqv());
-        pic.setPplaceold(setPicRequest.getPplaceold());
-        pic.setPtxt(setPicRequest.getPtxt());
-        pic.setPtimestart(setPicRequest.getPtimestart());
-        pic.setPtimeend(setPicRequest.getPtimeend());
-        return new Result<>(picService.SavePic(pic));
-    }
+//    @PostMapping ("/setPic")
+//    private Result<List<Pic>> setPic(@RequestBody SetPicRequest setPicRequest)
+//    {
+//        Pic pic = new Pic();
+//        pic.setPname(setPicRequest.getPname());
+//        pic.setPplacesheng(setPicRequest.getPplacesheng());
+//        pic.setPplaceshi(setPicRequest.getPplaceshi());
+//        pic.setPplaceqv(setPicRequest.getPplaceqv());
+//        pic.setPplaceold(setPicRequest.getPplaceold());
+//        pic.setPtxt(setPicRequest.getPtxt());
+//        pic.setPtimestart(setPicRequest.getPtimestart());
+//        pic.setPtimeend(setPicRequest.getPtimeend());
+//        return new Result<>(picService.SavePic(pic));
+//    }
     @GetMapping("/del/{id}")
     private Result<List<Pic>> Del(@PathVariable("id") Integer id)
     {

@@ -17,4 +17,8 @@ class UserServiceTest {
 //        userService.sendEmail(address,code);
 //        System.out.println("finish");
 //    }
+//    @Test
+//    void SendEmail(){
+//        userService.sendEmail("sunabrhh@foxmail.com", "123456");
+//    }
 }
