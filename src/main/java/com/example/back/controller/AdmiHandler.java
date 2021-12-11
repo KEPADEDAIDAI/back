@@ -2,7 +2,6 @@ package com.example.back.controller;
 
 import com.example.back.entity.Admi;
 import com.example.back.entity.Result;
-import com.example.back.repository.AdmiRepository;
 import com.example.back.server.AdmiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

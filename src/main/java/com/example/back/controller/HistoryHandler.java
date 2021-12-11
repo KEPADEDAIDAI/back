@@ -2,7 +2,7 @@ package com.example.back.controller;
 
 import com.example.back.entity.History;
 import com.example.back.entity.Result;
-import com.example.back.entity.request.AddhistoryRequest;
+import com.example.back.request.AddhistoryRequest;
 import com.example.back.server.HistoryService;
 import com.example.back.server.PicService;
 import com.example.back.server.UserService;
@@ -10,7 +10,6 @@ import com.example.back.utils.checkInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

@@ -2,16 +2,10 @@ package com.example.back.controller;
 
 import com.example.back.entity.Pic;
 import com.example.back.entity.Result;
-import com.example.back.entity.request.SetPicRequest;
-import com.example.back.repository.PicRepository;
 import com.example.back.server.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController

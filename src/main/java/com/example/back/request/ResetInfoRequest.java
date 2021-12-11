@@ -1,4 +1,4 @@
-package com.example.back.entity.request;
+package com.example.back.request;
 
 import lombok.Data;
 
