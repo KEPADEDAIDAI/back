@@ -44,7 +44,7 @@ public class CommentHandler {
     }
 
     @PostMapping("/addComment")
-    public Result<List<Comment>> addComment(AddCommentRequest addCommentRequest) {
+    public Result<List<Comment>> addComment(@RequestBody AddCommentRequest addCommentRequest) {
         Comment comment = new Comment();
         String pid = addCommentRequest.getPid();
         String uid = addCommentRequest.getUid();
@@ -59,7 +59,7 @@ public class CommentHandler {
         if (!picService.existsByPid(comment.getPid())) {
             return new Result<>("传入图片不存在", 303);
         }
-        if (userService.existsByUid(comment.getUid())) {
+        if (!userService.existsByUid(comment.getUid())) {
             return new Result<>("传入用户不存在", 304);
         }
         comment.setPltxt(addCommentRequest.getPltxt());
@@ -83,7 +83,7 @@ public class CommentHandler {
         return new Result<>(commentService.findAllCommentPages(PageRequest.of(Integer.parseInt(pageNo) - 1, Integer.parseInt(pageSize))));
     }
 
-    @PostMapping("findByPidPages")
+    @PostMapping("/findByPidPages")
     public Result<List<Comment>> findByPidPages(@RequestBody CommentFindRequest commentFindRequest) {
         String pageSize = commentFindRequest.getPageSize();
         String pageNo = commentFindRequest.getPageNo();
@@ -96,10 +96,15 @@ public class CommentHandler {
         int total = list.size(), ps = Integer.parseInt(pageSize), pn = Integer.parseInt(pageNo);
         int l = ps * (pn-1)+1, r = l+ps-1;
         if(r>total) r = total;
-        if(l<r) return new Result<>("已无值", 308);
-        return new Result<>(list.subList(l-1,r));
+        if(l>r) return new Result<>("已无值", 308);
+        List<Comment> list1 = list.subList(l-1,r);
+        for(Comment x:list1)
+        {
+            x.setUname(userService.findUnameById(x.getUid()));
+        }
+        return new Result<>(list1);
     }
-    @PostMapping("findByUidPages")
+    @PostMapping("/findByUidPages")
     public Result<List<Comment>> findByUidPages(@RequestBody CommentFindRequest commentFindRequest){
         String pageSize = commentFindRequest.getPageSize();
         String pageNo = commentFindRequest.getPageNo();
@@ -114,5 +119,11 @@ public class CommentHandler {
         if(r>total) r = total;
         if(l<r) return new Result<>("已无值", 308);
         return new Result<>(list.subList(l-1,r));
+    }
+    @GetMapping("/findPageNumByPid/{pid}")
+    public Result<Integer> findPageNumByPid(@PathVariable("pid")Integer pid)
+    {
+        List<Comment> list = commentService.getCommentByPid(pid);
+        return new Result<>(list.size());
     }
 }

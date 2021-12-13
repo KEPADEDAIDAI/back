@@ -44,6 +44,12 @@ public class UserService {
     {
         return userReponsitory.findUserByUid(id);
     }
+    public String findUnameById(Integer id)
+    {
+        List<User> list = userReponsitory.findUserByUid(id);
+        if(list.isEmpty()) return "unknown";
+        else return list.get(0).getUname();
+    }
     public boolean existsByName(String name) {
         return userReponsitory.existsUserByUname(name);
     }
