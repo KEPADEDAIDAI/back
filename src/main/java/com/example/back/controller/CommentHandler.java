@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class CommentHandler {
         if (!checkInt.check(pageNo) || !checkInt.check(pageSize) || !checkInt.check(pid))
             return new Result<>("传入参数不是整数", 307);
         List<Comment> list = commentService.getCommentByPid(Integer.parseInt(pid));
+        Collections.reverse(list);
         int total = list.size(), ps = Integer.parseInt(pageSize), pn = Integer.parseInt(pageNo);
         int l = ps * (pn-1)+1, r = l+ps-1;
         if(r>total) r = total;
