@@ -1,2 +1,7 @@
-I do not what say anything
+民族图像数据库后端部分
 
+主体框架使用了springboot
+
+数据库操作使用jpa
+
+配置文件已删除，有空的话可能会上传基础配置文件
