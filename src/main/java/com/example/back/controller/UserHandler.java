@@ -46,7 +46,7 @@ public class UserHandler {
             return new Result<>("该用户不存在", 202);
         }
         List<User> list = userService.findByEmail(loginRequest.getEmail());
-        String pas = Md5.md5(loginRequest.getUpass());
+        String pas = Md5.md5(loginRequest.getUpass(),loginRequest.getEmail());
         if (pas == null)
             return new Result<>("输入密码为空", 203);
         if (pas.equals(list.get(0).getUpass())) {
@@ -118,7 +118,7 @@ public class UserHandler {
         if (pas == null) {
             return new Result<>("密码为空", 209);
         }
-        user.setUpass(Md5.md5(pas));
+        user.setUpass(Md5.md5(pas, user.getEmail()));
         user.setUname(userAddRequest.getUname());
         int code = (int) ((Math.random() * 9 + 1) * 1000000);
         if (user.getUname() == null) user.setUname("游客" + code);
@@ -181,7 +181,7 @@ public class UserHandler {
         String pass = resetPassRequest.getUpass();
         if (pass == null)
             return new Result<>("密码为空", 209);
-        user.setUpass(Md5.md5(pass));
+        user.setUpass(Md5.md5(pass, user.getEmail()));
         return new Result<>(userService.SaveUser(user));
     }
 

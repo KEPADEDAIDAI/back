@@ -5,15 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class Md5 {
-    public static String md5(String password)
+    public static String md5(String password, String email)
     {
         try{
+            String string = password.toString() +email.toString();
             MessageDigest md = MessageDigest.getInstance("md5");
-            byte[] bytes = md.digest(password.getBytes());
+            byte[] bytes = md.digest(string.getBytes());
             return Base64.getEncoder().encodeToString(bytes);
-
-//            String str = Base64.getEncoder().encodeToString(bytes);
-//            return str;
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
